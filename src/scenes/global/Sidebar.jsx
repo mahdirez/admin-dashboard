@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -24,7 +25,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       active={selected === title}
       style={{
         color: colors.grey[100],
-        backgroundColor: "transparent",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -35,7 +35,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebars = () => {
+const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -44,26 +44,32 @@ const Sidebars = () => {
   return (
     <Box
       sx={{
-        backgroundColor: colors.primary[400],
-        // ":hover": colors.greenAccent[100],
+        "& .pro-sidebar-inner": {
+          background: `${colors.primary[400]} !important`,
+        },
+        "& .pro-icon-wrapper": {
+          backgroundColor: "transparent !important",
+        },
+        "& .pro-inner-item": {
+          padding: "5px 35px 5px 20px !important",
+        },
+        "& .pro-inner-item:hover": {
+          color: "#868dfb !important",
+        },
+        "& .pro-menu-item.active": {
+          color: "#6870fa !important",
+        },
       }}
     >
-      <Sidebar
-        collapsed={isCollapsed}
-        style={{ backgroundColor: colors.primary[400] }}
-      >
-        <Menu
-          iconShape="square"
-          style={{ backgroundColor: colors.primary[400] }}
-        >
+      <ProSidebar collapsed={isCollapsed}>
+        <Menu iconShape="square">
+          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              // margin: "10px 0 20px 0",
+              margin: "10px 0 20px 0",
               color: colors.grey[100],
-              backgroundColor: colors.primary[400],
-              // padding: "5px 35px 5px 20px !important",
             }}
           >
             {!isCollapsed && (
@@ -71,8 +77,7 @@ const Sidebars = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                // ml="15px"
-                // sx={{ backgroundColor: "transparent" }}
+                ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
                   ADMINIS
@@ -83,42 +88,35 @@ const Sidebars = () => {
               </Box>
             )}
           </MenuItem>
+
           {!isCollapsed && (
-            <Box>
+            <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
+                {/* <img
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../asset/photo.png`}
-                  style={{
-                    cursor: "pointer",
-                    borderRadius: "50%",
-                  }}
-                />
+                  // src={``}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                /> */}
               </Box>
               <Box textAlign="center">
                 <Typography
                   variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
-                  // sx={{ m: "10px 0 0 0" }}
+                  sx={{ m: "10px 0 0 0" }}
                 >
                   Mahdi Rezaei
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  VP Admin
                 </Typography>
               </Box>
             </Box>
           )}
-          {/* comment */}
-          <Box
-            paddingLeft={isCollapsed ? undefined : "10%"}
-            sx={{
-              background: colors.primary[400],
-            }}
-          >
+
+          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
               to="/"
@@ -222,9 +220,9 @@ const Sidebars = () => {
             />
           </Box>
         </Menu>
-      </Sidebar>
+      </ProSidebar>
     </Box>
   );
 };
 
-export default Sidebars;
+export default Sidebar;
