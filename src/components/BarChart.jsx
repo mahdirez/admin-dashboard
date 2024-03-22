@@ -13,7 +13,7 @@ const BarChart = ({ isDashboard = false }) => {
       chartInstance.current = new Chart(chartRef.current, {
         type: "bar",
         data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Pink"],
           datasets: [
             {
               label: "# of Votes",
