@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { Box } from "@mui/material";
 
-const BarChart = () => {
+const BarChart = ({ isDashboard = false }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -11,6 +11,27 @@ const BarChart = () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
+      const chartOptions = isDashboard
+        ? {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+              x: {
+                display: true,
+              },
+              y: {
+                display: true,
+              },
+            },
+          }
+        : {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          };
+
       chartInstance.current = new Chart(chartRef.current, {
         type: "bar",
         data: {
@@ -41,13 +62,7 @@ const BarChart = () => {
             },
           ],
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
+        options: chartOptions,
       });
     }
 
@@ -58,14 +73,7 @@ const BarChart = () => {
     };
   }, []);
 
-  return (
-    <Box
-      height={"70vh"}
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <canvas ref={chartRef}></canvas>
-    </Box>
-  );
+  return <canvas ref={chartRef}></canvas>;
 };
 
 export default BarChart;
