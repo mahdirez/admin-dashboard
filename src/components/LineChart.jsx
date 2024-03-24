@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { Box } from "@mui/material";
 
-const PieChart = () => {
+const LineChart = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -12,21 +12,25 @@ const PieChart = () => {
         chartInstance.current.destroy();
       }
       chartInstance.current = new Chart(chartRef.current, {
-        type: "doughnut",
+        type: "line",
         data: {
-          labels: ["Red", "Blue", "Yellow"],
+          labels: ["1", "2", "3", "4", "5", "6", "7"],
           datasets: [
             {
-              label: "My First Dataset",
-              data: [300, 50, 100],
-              backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(54, 162, 235)",
-                "rgb(255, 205, 86)",
-              ],
-              hoverOffset: 4,
+              label: "show line",
+              data: [65, 59, 80, 81, 56, 55, 40],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
             },
           ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
         },
       });
     }
@@ -40,7 +44,7 @@ const PieChart = () => {
 
   return (
     <Box
-      height={"80vh"}
+      height={"70vh"}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <canvas ref={chartRef}></canvas>
@@ -48,4 +52,4 @@ const PieChart = () => {
   );
 };
 
-export default PieChart;
+export default LineChart;

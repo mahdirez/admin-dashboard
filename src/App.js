@@ -13,6 +13,9 @@ import Calendar from "./scenes/calender";
 import FAQ from "./scenes/faq";
 import BarChart from "./components/BarChart";
 import PieChart from "./components/PieChart";
+import Line from "./scenes/line";
+import Pie from "./scenes/pie";
+import Bar from "./scenes/bar";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -32,8 +35,9 @@ function App() {
               <Route path="/form" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/bar" element={<BarChart />} />
-              <Route path="/pie" element={<PieChart />} />
+              <Route path="/bar" element={<Bar />} />
+              <Route path="/pie" element={<Pie />} />
+              <Route path="/line" element={<Line />} />
             </Routes>
           </main>
         </div>
